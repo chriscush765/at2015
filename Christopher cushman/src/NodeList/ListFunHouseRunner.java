@@ -46,6 +46,11 @@ public class ListFunHouseRunner
 		ListFunHouse.setXthNode(z,2,"one");		
 		out.println("\nList values after calling setXthNode(2,one)\n");										
 		ListFunHouse.print(z);
-		out.println();				
+		out.println();		
+		
+		ListFunHouse.skipEveryOther(z);		
+		out.println("\nskiperronie\n");										
+		ListFunHouse.print(z);
+		out.println();	
 	}
 }

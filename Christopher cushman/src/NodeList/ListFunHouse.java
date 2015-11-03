@@ -14,7 +14,7 @@ public class ListFunHouse {
 
 	// this method will return the number of nodes present in list
 	public static int nodeCount(ListNode list) {
-		int count = 0;
+		int count = 1;
 		while(list.getNext() != null){
 			count++;
 			list = list.getNext();
@@ -40,11 +40,7 @@ public class ListFunHouse {
 
 	// method skipEveryOther will remove every other node
 	public static void skipEveryOther(ListNode list) {
-		 while(list != null)
-	        {
-	            if(list.getNext().getNext() != null)
-	                list.setNext(list.getNext().getNext());
-	        }
+		 removeXthNode(list, 2);
 	}
 
 	// this method will set the value of every xth node in the list
@@ -58,6 +54,7 @@ public class ListFunHouse {
 	            temp = temp.getNext();
 	            count++;
 	        }
+	        list.
 	}
 
 	// this method will remove every xth node in the list
