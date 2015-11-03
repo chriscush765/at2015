@@ -62,14 +62,19 @@ public class ListFunHouse {
 
 	// this method will remove every xth node in the list
 	public static void removeXthNode(ListNode list, int x) {
-		{
-			int count = 1;
-			while (list != null) {
-				if((count + 1) % x == 0)
-					list.setNext(new ListNode(list.getNext().getValue(),list.getNext().getNext()));
-				list = list.getNext();
-				count++;
-			}
-		}
+		
+        int count = 1;
+        ListNode prev = null;
+        ListNode temp = list;
+        while(temp != null)
+        {
+            if(count % x == 0)
+            {
+                prev.setNext(temp.getNext());
+            }
+            prev = temp;
+            temp = temp.getNext();
+            count++;
+        }
 	}
 }
