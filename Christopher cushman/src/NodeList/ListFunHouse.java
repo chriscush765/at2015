@@ -54,7 +54,7 @@ public class ListFunHouse {
 	            temp = temp.getNext();
 	            count++;
 	        }
-	        list.
+	        list = list.getNext();
 	}
 
 	// this method will remove every xth node in the list
