@@ -1,6 +1,7 @@
 package NodeListTwo;
 
 import static java.lang.System.*;
+import NodeList.ListNode;
 
 
 
@@ -58,42 +59,34 @@ public class ListFunHouseTwo {
 
 	// this method will set the value of every xth node in the list
 	public void setXthNode(int x, Comparable value) {
-		ListNode head = current;
-		ListNode last = current;
-		int count=1;
-		ListNode temp = current;
-		head = head.getNext();
-		while(head != current){
-			if(count % x == 0)
-				temp.setValue(value);
-			temp = temp.getNext();
-			count++;
-		}
+		 int count=0;
+	        ListNode temp = current.getNext();
+	        while(temp != current)
+	        {
+	            if(count % x == 0)
+	                temp.setValue(value);
+	            temp = temp.getNext();
+	            count++;
+	        }
 			
 	}
 
 	// this method will remove every xth node in the list
 	public void removeXthNode(int x) {
-
-		int count = 1;
-		ListNode prev = null;
-		ListNode temp = current;
+		   int count = 1;
+	        ListNode prev = null;
+	        ListNode temp = current.getNext();
+	        while(temp != current)
+	        {
+	            if(count % x == 0)
+	            {
+	                prev.setNext(temp.getNext());
+	            }
+	            prev = temp;
+	            temp = temp.getNext();
+	            count++;
+	        }
 		
-		ListNode head = current;
-		ListNode last = current;
-		current = current.getNext();
-		while(current != head){
-			if(count % x == 0)
-			{
-				prev.setNext(temp.getNext());
-			}
-			prev = temp;
-			temp = temp.getNext();
-			count++;
-			
-			last = current;
-			current = current.getNext();
-		}
 	}
 
 	public void add(String string) {
