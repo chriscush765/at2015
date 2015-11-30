@@ -27,12 +27,19 @@ public class CDStack {
 		return myStack.pop();
 	}
 	
+	public void print(){
+		String yo = myStack.peek();
+		while(!myStack.empty() && myStack.peek() != null){
+			System.out.println(yo);
+			yo = myStack.pop();
+		}
+	}
+	
+	public void printWithIterator() {
+	}
+	
 	public static void main(String[] args) {
 		CDStack cd = new CDStack();
-		String yo = cd.nextCD();
-		while(yo != null){
-			System.out.println(yo);
-			yo = cd.nextCD();
-		}
+		cd.print();
 	}
 }
