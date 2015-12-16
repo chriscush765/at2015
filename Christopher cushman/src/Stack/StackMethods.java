@@ -14,8 +14,10 @@ public class StackMethods {
 
 	public static Stack<String> alternateStack(Stack<String> one,Stack<String> two) {
 		Stack<String> c = new Stack<String>();
-		while(!one.isEmpty() && !two.isEmpty()) {
+		while(!one.isEmpty() || !two.isEmpty()) {
+			if(!one.isEmpty())
 			c.push(one.pop());
+			if(!two.isEmpty())
 			c.push(two.pop());
 		}
 		return c;
@@ -84,5 +86,6 @@ public class StackMethods {
 	d.push("ten"); 
 
 	display(removeEveryOther(d));
+	System.out.println(getAverage(a));
 	}
 }
