@@ -10,8 +10,10 @@ import java.util.Stack;
 		public MyQueue() {
 			list=new LinkedList();
 		}
-		public MyQueue(T...ts) {
-			list=Arrays.stream(ts).collect(Collectors.toCollection(LinkedList<T>::new));
+		public MyQueue(String[] arg) {
+			list=new LinkedList();
+			for(String a : arg)
+				list.add(a);
 		}	
 		
 		public boolean isEmpty() {
@@ -34,7 +36,7 @@ import java.util.Stack;
 			if (list.indexOf(arg) == -1)
 					return -1;
 			else
-				return list.indexOf(t)+1;
+				return list.indexOf(arg)+1;
 		}
 		
 		public int size() {
@@ -51,10 +53,10 @@ import java.util.Stack;
 		
 		public static void main(String[] args) {
 			MyQueue tc= new MyQueue();
-			tc.offer("Quarter");
-			tc.offer("Dime");
-			tc.offer("Nickle");
-			tc.offer("Penny");
+			tc.offer("quarter");
+			tc.offer("dime");
+			tc.offer("nickle");
+			tc.offer("penny");
 			System.out.println("toString() "+tc);
 			System.out.println("peek() "+tc.peek());
 			System.out.println("search for dime "+tc.search("dime"));
