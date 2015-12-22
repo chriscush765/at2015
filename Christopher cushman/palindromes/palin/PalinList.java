@@ -20,13 +20,13 @@ public class PalinList
 		setList(list);
 	}
 
-	public void setList(String list)
-	{
+	public void setList(String list) {
 		queue=new LinkedList<String>();
 		stack=new Stack<String>();
-		for(String obj : list.replaceAll("\\s+","").split("")) {
-			queue.offer(obj);
-			stack.push(obj);
+		final String[] args=list.trim().split(" ");
+		for(String x : args) {
+			queue.offer(x);
+			stack.push(x);
 		}
 	}
 
