@@ -24,7 +24,7 @@ public class PalinList
 	{
 		queue=new LinkedList<String>();
 		stack=new Stack<String>();
-		for(String obj : list.replaceAll("\\s+","").split("(?!^)")) {
+		for(String obj : list.replaceAll("\\s+","").split("")) {
 			queue.offer(obj);
 			stack.push(obj);
 		}

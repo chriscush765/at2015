@@ -47,9 +47,12 @@ public class HeadTail {
 	}
 	
 	public void doubleArray() {
+		Arrays.sort(stuff);
 		int size = stuff.length;
 		Object[] newStuff = new Object[size * 2];
 		System.arraycopy(stuff, 0, newStuff, 0, stuff.length);
+		head = 0;
+		tail = size;
 		stuff = newStuff;
 	}
 
