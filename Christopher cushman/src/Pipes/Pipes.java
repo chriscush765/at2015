@@ -1,6 +1,7 @@
 package Pipes;
 
 import javax.swing.*;
+
 import java.awt.*;
 
 /**
@@ -22,7 +23,19 @@ public class Pipes {
 
             Graphics g = cnvs.getGraphics();
             g.setColor(new Color(255, 0, 0));
-            g.drawString("Hello", 200, 200);
+            double y;
+            double x;
+            try {
+                for (int ii = 0; ii < 5; ii++) {
+                	g.drawLine(y, x, arg2, arg3);
+                    Thread.sleep(100);
+                }
+            }catch(InterruptedException E){
+
+            }
+            JOptionPane.showMessageDialog(null, lineComponent);
+          
         }
 
 }
+
