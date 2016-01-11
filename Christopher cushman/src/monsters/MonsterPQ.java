@@ -23,18 +23,17 @@ public class MonsterPQ
 	
 	public Object getMin()
 	{
-		return "";
+		return pq.stream().sorted().toArray()[0];
 	}
 	
 	public Object removeMin()
 	{
-		return "";
+		return pq.remove(getMin());
 	}
 	
 	public String getNaturalOrder()
 	{
-		String output="";
-		return output;		
+		return Arrays.toString(pq.stream().sorted().toArray());	
 	}
 
 	//write a toString method
