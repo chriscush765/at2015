@@ -45,7 +45,8 @@ class Monster implements Comparable<Monster>
 	}
 
 	public boolean equals(Object o) {
-		return this.equals(o);
+		Monster m = (Monster) o;
+		return ht == m.getHeight() && wt == m.getWeight() && age == m.getAge();
 	}
 
 	public int compareTo(Monster rhs) {
@@ -55,7 +56,7 @@ class Monster implements Comparable<Monster>
 	}
 
 	public String toString() {
-		return "Weight: "+getWeight()+ ", Height: "+getHeight()+ ", Age: "+getAge();
+		return "Height: "+getHeight()+", Weight: "+getWeight()+ ", Age: "+getAge();
 	}
 
 }

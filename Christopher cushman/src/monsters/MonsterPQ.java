@@ -28,12 +28,18 @@ public class MonsterPQ
 	
 	public Object removeMin()
 	{
-		return pq.remove(getMin());
+		Monster t = (Monster) getMin();
+		pq.remove(t);
+		return t;
 	}
 	
 	public String getNaturalOrder()
 	{
 		return Arrays.toString(pq.stream().sorted().toArray());	
+	}
+	
+	public String toString() {
+		return Arrays.toString(pq.stream().toArray());	
 	}
 
 	//write a toString method
