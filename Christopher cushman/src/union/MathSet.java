@@ -28,9 +28,9 @@ public class MathSet
 
 	public Set<Integer> union()
 	{
-		Stream stream1 = one.stream();
-		Stream stream2 = one.stream();
-		return Stream.concat(stream1, stream2).sorted().collect(Collectors.toSet());
+		Stream<Integer> stream1 = one.stream();
+		Stream<Integer> stream2 = two.stream();
+		return Stream.concat(one.stream(), stream2).sorted().collect(Collectors.toSet());
 	}
 
 	public Set<Integer> intersection()
