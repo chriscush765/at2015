@@ -1,9 +1,11 @@
+package union;
 //© A+ Computer Science  -  www.apluscompsci.com
 //Name -
 //Date -
 //Class -
 //Lab  -
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -17,14 +19,19 @@ public class MathSetRunner
 {
 	public static void main(String args[]) throws IOException
 	{
-		Scanner s = new Scanner(new FileReader("H:\\git\\at2015\\Christopher cushman\\src\\oddAndEven\\oddevendata.dat"));
-		ArrayList<String> a = new ArrayList<String>();
-		
-		while(s.hasNext())
-			a.add(s.nextLine());
+		BufferedReader k = new BufferedReader(new FileReader(new File("H:\\git\\at2015\\Christopher cushman\\bin\\union\\mathsetdata.dat")));       
+
 	
-		for(String x : a)
-			System.out.println(new OddEvenSets(x));
+			while(k.ready()) {
+			MathSet m = new MathSet(k.readLine(),k.readLine());
+			System.out.println(m);
+			System.out.println(m.union());
+			System.out.println(m.intersection());
+			System.out.println(m.differenceAMinusB());
+			System.out.println(m.differenceBMinusA());
+			System.out.println(m.symmetricDifference());
+		}
+			
 				
 	
 

@@ -1,9 +1,11 @@
+package union;
 //© A+ Computer Science  -  www.apluscompsci.com
 //Name -
 //Date -
 //Class -  
 //Lab  -  
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.Arrays;
@@ -24,6 +26,8 @@ public class MathSet
 
 	public MathSet(String o, String t)
 	{
+		this.one=Arrays.stream(o.split(" ")).map(x->Integer.parseInt(x)).collect(Collectors.toSet());
+		this.two=Arrays.stream(t.split(" ")).map(x->Integer.parseInt(x)).collect(Collectors.toSet());
 	}
 
 	public Set<Integer> union()
@@ -35,22 +39,30 @@ public class MathSet
 
 	public Set<Integer> intersection()
 	{
-		return null;
+		HashSet<Integer> temp = new HashSet<Integer>(one);
+		temp.retainAll(two);
+		return temp;
 	}
 
 	public Set<Integer> differenceAMinusB()
 	{
-		return null;
+		HashSet<Integer> temp = new HashSet<Integer>(one);
+		temp.removeAll(two);
+		return temp;
 	}
 
 	public Set<Integer> differenceBMinusA()
 	{
-		return null;
+		HashSet<Integer> temp = new HashSet<Integer>(two);
+		temp.removeAll(one);
+		return temp;
 	}
 	
 	public Set<Integer> symmetricDifference()
 	{		
-		return null;
+		Set<Integer> temp = union();
+		temp.removeAll(intersection());
+		return temp;
 	}	
 	
 	public String toString()
