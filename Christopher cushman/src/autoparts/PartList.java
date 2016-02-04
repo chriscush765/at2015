@@ -34,17 +34,14 @@ public class PartList {
 				int i = 0;
 				for (; i < words.length; i++) {
 					if(words[i].matches("[-+]?\\d*\\.?\\d+")) {
-						System.out.println(words[i]);
 						break; //keep going until we find a number
 				}
 				}
-				System.out.println(i);
-				Part part = new Part((words[i + 1]) + (words[i + 2]) + (words[i + 3]));
+				Part part = new Part((words[i + 1]) + " "+ (words[i + 2]) +  " "+ (words[i + 3]));
 				int code = Integer.parseInt(words[i]);
 				partsMap.put(part,code);
 				
 			}
-			System.out.println(partsMap.toString());
 		} catch (IOException io) {
 		}
 
@@ -52,7 +49,11 @@ public class PartList {
 
 	public String toString() {
 		String output = "";
-
+		System.out.println(partsMap.values());
+		for (Part p : partsMap.keySet()) {
+			
+			System.out.println(p.toString());
+		}
 		return output;
 	}
 }

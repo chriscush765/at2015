@@ -13,6 +13,6 @@ public class PartRunner
 	{
 		
 		PartList prog = new PartList("partinfo.dat");
-		out.println(prog);
+		out.println(prog.toString());
 	}
 }
