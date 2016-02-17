@@ -23,4 +23,14 @@ public class ClubMap {
 			}
 		}
 	}
+	@Override
+	public String toString() {
+		for(String key : map.keySet()) {
+			System.out.println("-------   "+key+"   -------");
+			for(Student s : map.get(key)) {
+				System.out.println(s.toString());
+			}
+		}
+		return "";
+	}
 }
