@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 import java.util.Scanner;
 
@@ -16,44 +17,62 @@ public class PartList {
 	private TreeMap<Part, Integer> partsMap;
 
 	public PartList() {
-
+		partsMap = new TreeMap<Part, Integer>();
 	}
 
 	public PartList(String fileName) throws FileNotFoundException {
 		this();
-		partsMap = new TreeMap<Part, Integer>();
 		try {
+			Scanner s = new Scanner(new File("H:\\git\\at2015\\Christopher cushman\\bin\\autoparts\\"
+					+ fileName));
 
-			StringBuilder s = new StringBuilder();
-			BufferedReader k = new BufferedReader(new FileReader(new File(
-					"H:\\git\\at2015\\Christopher cushman\\bin\\autoparts\\"
-							+ fileName)));
+			while (s.hasNext()) {
+				String info = s.nextLine();
+				String[] words = info.split(" ");
+				String make, model, remaining;
+				int year;
+				if (words.length == 6) {
+					make = words[3];
+					model = words[4];
+					year = Integer.parseInt(words[5]);
+					remaining = words[0] + " " + words[1] + " " + words[2];
+				} else {
+					make = words[2];
+					model = words[3];
+					year = Integer.parseInt(words[4]);
+					remaining = words[0] + " " + words[1];
+				}
 
-			while (k.ready()) {
-				String words[] = k.readLine().split(" ");
-				int i = 0;
-				for (; i < words.length; i++) {
-					if(words[i].matches("[-+]?\\d*\\.?\\d+")) {
-						break; //keep going until we find a number
+				Part newPart = new Part(make + " " + model + " " + year + " "
+						+ remaining);
+
+				if (!partsMap.containsKey(newPart)) 
+					partsMap.put(newPart, 1);
+				else {
+					int quantity = partsMap.get(newPart);
+					partsMap.put(newPart, quantity + 1);
 				}
-				}
-				Part part = new Part((words[i + 1]) + " "+ (words[i + 2]) +  " "+ (words[i + 3]));
-				int code = Integer.parseInt(words[i]);
-				partsMap.put(part,code);
-				
 			}
-		} catch (IOException io) {
+
+			s.close();
+		} catch (IOException e) // Most specific exceptions must be listed 1st
+		{
+			System.out.println(e);
 		}
 
 	}
 
 	public String toString() {
-		String output = "";
-		System.out.println(partsMap.values());
-		for (Part p : partsMap.keySet()) {
-			
-			System.out.println(p.toString());
+		StringBuilder output = new StringBuilder();
+
+		Set<Part> keys = partsMap.keySet();
+
+		for(Part s : keys){
+			output.append(s.toString() + " - ");
+			output.append(partsMap.get(s) + "");
+			output.append("\n");
 		}
-		return output;
+
+		return output.toString();
 	}
 }

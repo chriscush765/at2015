@@ -9,14 +9,15 @@ import java.util.*;
 
 public class PhoneBook extends Object{
 
-	private Hashtable<String, LinkedList<PhoneEntry>> data;
-	
+	private Hashtable<Integer, LinkedList<PhoneEntry>> data;
+	private int num = 0;
 	public PhoneBook() {
 		this(5);
 	}
 	
 	public PhoneBook(int numSlots) {
-		data = new Hashtable<String, LinkedList<PhoneEntry>>();
+		data = new Hashtable<Integer, LinkedList<PhoneEntry>>();
+		num = numSlots;
 	}
 
 	public void load() throws IOException {
@@ -30,17 +31,18 @@ public class PhoneBook extends Object{
 	}
 	
 	public void add(PhoneEntry obj) {
-		if(data.containsKey(obj.name))
-			data.get(obj.name).add(obj);
+		int bucket = obj.hashCode() % num;
+		if(data.containsKey(bucket))
+			data.get(bucket).add(obj);
 		else {
 			LinkedList<PhoneEntry> ll = new LinkedList<PhoneEntry>();
 			ll.add(obj);
-			data.put(obj.name, ll);
+			data.put(bucket, ll);
 		}
 	}
 	public void display() {
-		for(String s : data.keySet()) {
-			System.out.println("Name: "+ s);
+		for(int s : data.keySet()) {
+			System.out.println("Bucket: "+ s);
 			System.out.println(data.get(s).toString());
 			
 		}
@@ -53,7 +55,7 @@ public class PhoneBook extends Object{
 	
 	public int getSize() {
 		int size = 0;
-		for(String s : data.keySet())
+		for(int s : data.keySet())
 			size += data.get(s).size();
 		return size;
 	}
