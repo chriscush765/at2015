@@ -37,6 +37,7 @@ public class PhoneBook extends Object{
 		else {
 			LinkedList<PhoneEntry> ll = new LinkedList<PhoneEntry>();
 			ll.add(obj);
+			ll.sort((x,y)->x.name.compareTo(y.name));
 			data.put(bucket, ll);
 		}
 	}
