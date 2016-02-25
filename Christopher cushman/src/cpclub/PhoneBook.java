@@ -12,7 +12,7 @@ public class PhoneBook extends Object{
 	private Hashtable<Integer, LinkedList<PhoneEntry>> data;
 	private int num = 0;
 	public PhoneBook() {
-		this(5);
+		this(100);
 	}
 	
 	public PhoneBook(int numSlots) {
@@ -32,14 +32,23 @@ public class PhoneBook extends Object{
 	
 	public void add(PhoneEntry obj) {
 		int bucket = obj.hashCode() % num;
-		if(data.containsKey(bucket))
+		if(data.containsKey(bucket)) {
 			data.get(bucket).add(obj);
-		else {
+			data.get(bucket).sort((x,y)->x.name.compareTo(y.name));
+		} else {
 			LinkedList<PhoneEntry> ll = new LinkedList<PhoneEntry>();
 			ll.add(obj);
 			ll.sort((x,y)->x.name.compareTo(y.name));
 			data.put(bucket, ll);
 		}
+	}
+	
+	public void changeNumber(String name, String number) {
+		for(Integer ll : data.keySet()) 
+			for(PhoneEntry p : data.get(ll))
+				if(p.name.equals(name))
+					p.number = number;
+		
 	}
 	public void display() {
 		for(int s : data.keySet()) {
@@ -62,10 +71,7 @@ public class PhoneBook extends Object{
 	}
 	
 	public int getNullBuckets() {
-		int size = 0;
-		for(LinkedList<PhoneEntry> ll : data.values())
-			size += Optional.of(ll).isPresent() ? 1 : 0;
-		return size;
+		return num - data.values().size();
 	}
 	
 	public LinkedList<PhoneEntry> getLongestList() {
@@ -76,7 +82,12 @@ public class PhoneBook extends Object{
 	}
 	
 	public String lookup(String name) {
-		return name;
+		for(Integer ll : data.keySet()) {
+		for(PhoneEntry p : data.get(ll))
+			if(p.name.equals(name))
+				return p.number;
+		}
+		return null;
 		
 	}
 	
