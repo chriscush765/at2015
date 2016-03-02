@@ -19,7 +19,8 @@ public class BSTreeRunner
  		System.out.println("Leaves "+ bs.getNumLeaves());
  		System.out.println("num Levels "+ bs.getNumLevels());
  		System.out.println("is full "+ bs.isFull());
- 	
+ 		System.out.println("width "+bs.getWidth());
+ 		System.out.println("height "+ bs.getHeight());
  		
  		
  		

@@ -90,12 +90,12 @@ public class BinarySearchTree {
 	}
 
 	public int getNumLevels(TreeNode tree) {
-		if (tree == null)
+		if(tree==null)
 			return 0;
-		else if (getNumLevels(tree.getLeft()) > getNumLevels(tree.getRight()))
-			return 1 + getNumLevels(tree.getLeft());
+		else if(getNumLevels(tree.getLeft())>getNumLevels(tree.getRight()))
+			return 1+getNumLevels(tree.getLeft());
 		else
-			return 1 + getNumLevels(tree.getRight());
+			return 1+getNumLevels(tree.getRight());
 	}
 	
 	public int getNumLeaves() {
@@ -131,6 +131,22 @@ public class BinarySearchTree {
 			return ret;
 		else	
 			return  ret - 1;
+	}
+	
+	public int getWidth() {
+		int count = 0;
+		TreeNode x = root;
+		while(x != null) {
+			x = root.getLeft();
+			count++;
+		}
+		x = root;
+		while(x != null) {
+			x = root.getRight();
+			count++;
+		}
+		return count;
+			
 	}
 	
 	public boolean isFull() {
