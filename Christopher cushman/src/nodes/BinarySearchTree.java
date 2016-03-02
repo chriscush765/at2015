@@ -49,14 +49,12 @@ public class BinarySearchTree {
 		preOrder(root);
 	}
 	public void preOrder(TreeNode tree) {
-		if(tree == null)
-			return;
-		if(tree.getLeft() == null) {
-			System.out.println(tree.getValue());
-			preOrder(tree.getRight());
+		if(tree != null){
+			System.out.print(tree.getValue() + " ");
+			inOrder(tree.getLeft());
+			inOrder(tree.getRight());
+
 		}
-		preOrder(tree.getLeft());
-			
 			
 	}
 
@@ -64,17 +62,28 @@ public class BinarySearchTree {
 		preOrder(root);
 	}
 	public void postOrder(TreeNode tree) {
-		if(tree == null)
-			return;
-		if(tree.getLeft() == null) {
-			System.out.println(tree.getValue());
-			preOrder(tree.getRight());
+		if(tree != null){
+			inOrder(tree.getLeft());
+			inOrder(tree.getRight());
+			System.out.print(tree.getValue() + " ");
 		}
-		preOrder(tree.getLeft());
 			
 			
 	}
-	// add preOrder, postOrder, and revOrder
+	
+	public void revOrder()
+	{
+		revOrder(root);
+		System.out.println("\n");
+	}
+	
+	private void revOrder (TreeNode tree){
+		if(tree != null){
+			System.out.print(tree.getValue() + " ");
+			inOrder(tree.getRight());
+			inOrder(tree.getLeft());
+		}
+	}
 
 	public int getNumLevels() {
 		return getNumLevels(root);
@@ -88,37 +97,130 @@ public class BinarySearchTree {
 		else
 			return 1 + getNumLevels(tree.getRight());
 	}
+	
+	public int getNumLeaves() {
+		return getNumLeaves(root, 1);
+	}
+	public int getNumLeaves(TreeNode tree, int count) {
+		if(tree.getLeft() != null)
+			return getNumLeaves(tree.getLeft(),count);
+		else if(tree.getRight() != null )
+			return getNumLeaves(tree.getRight(),count);
+		else
+			return count++;
+			
+	}
+	
+	public int getNumNodes() {
+		return getNumNodes(root, 1);
+	}
+	public int getNumNodes(TreeNode tree, int count) {
+		if(tree.getLeft() != null)
+			return getNumNodes(tree.getLeft(),count) + 1;
+		else if(tree.getRight() != null )
+			return getNumNodes(tree.getRight(),count) + 1 ;
+		else
+			return count++;
+			
+	}
+	// getWidth, getHeight, , and isFull
 
-	// add getNumLeaves, getWidth, getHeight, getNumNodes, and isFull
-
+	public int getHeight(){
+		int ret = getNumLevels();
+		if(ret == 0)
+			return ret;
+		else	
+			return  ret - 1;
+	}
+	
+	public boolean isFull() {
+		return isFull(root);
+	}
+	public boolean isFull(TreeNode tree) {
+		if(tree.getValue() == null)
+			return true;
+		if(tree.getLeft() != null)
+			return isFull(tree.getLeft());
+		else if(tree.getRight() != null )
+			return isFull(tree.getRight());
+		return false;
+			
+	} 
 	public boolean search(Comparable value) {
 		return search(root, value);
 	}
 	public boolean search(TreeNode tree, Comparable value) {
 		if(tree.getValue().equals(value))
 			return true;
-		if(tree.getLeft() == null)
+		if(tree.getLeft() != null)
+			return search(tree.getLeft(),value);
+		else if(tree.getRight() != null )
 			return search(tree.getRight(),value);
-		return search(tree.getLeft(),value);
+		return false;
 			
 	}
 
+	public Comparable maxNode() {
+		return maxNode(root);
+	}
 
-	public Comparable maxNode(TreeNode tree, Comparable value) {
-		if(tree.getValue().compareTo(value) < 0)
-			return true;
-		if(tree.getLeft() == null)
-			return search(tree.getRight());
-		return search(tree.getLeft());
+	public Comparable maxNode(TreeNode tree) {
+		 Comparable max = tree.getValue();
+		    if(tree.getLeft() != null) {
+		        Comparable newMax = maxNode(tree.getLeft());
+		       max = max.compareTo(newMax) < 0 ? newMax : max;
+		        
+		    }
+		    if(tree.getRight() != null) {
+		    	 Comparable newMax = maxNode(tree.getRight());
+			       max = max.compareTo(newMax) < 0 ? newMax : max;
+		    }
+		    return max;
+			
+			
+			
 			
 			
 	}
 
-	// minNode
+	public Comparable minNode() {
+		return minNode(root);
+	}
+
+	public Comparable minNode(TreeNode tree) {
+		 Comparable min = tree.getValue();
+		    if(tree.getLeft() != null) {
+		        Comparable newMin = minNode(tree.getLeft());
+		        min = min.compareTo(newMin) > 0 ? newMin : min;
+		        
+		    }
+		    if(tree.getRight() != null) {
+		    	 Comparable newMin = minNode(tree.getRight());
+		    	 min = min.compareTo(newMin) > 0 ? newMin : min;
+		    }
+		    return min;
+			
+			
+			
+			
+			
+	}
 
 	// level order
 
-	// display like a tree
+	public void display()
+	{
+		System.out.print("inOrder\t");
+		inOrder();
+		System.out.print("preOrder\t");
+		preOrder();
+		System.out.print("postOrder\t");
+		postOrder();
+		System.out.print("revOrder\t");
+		revOrder();
+		System.out.print("levelOrder\t");
+		levelOrder();
+	}
 
 	// remove
 
