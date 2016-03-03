@@ -1,4 +1,4 @@
-package nodes;
+package bianaryPhone;
 
 import static java.lang.System.*;
 
@@ -34,6 +34,7 @@ public class BinarySearchTree {
 
 	public void inOrder() {
 		inOrder(root);
+		System.out.println("\n\n");
 	}
 
 	public void inOrder(TreeNode tree) {
@@ -50,7 +51,7 @@ public class BinarySearchTree {
 
 	public void preOrder(TreeNode tree) {
 		if (tree != null) {
-			System.out.print(tree.getValue() + " ");
+			System.out.println(tree.getValue() + "\n");
 			inOrder(tree.getLeft());
 			inOrder(tree.getRight());
 
@@ -58,28 +59,29 @@ public class BinarySearchTree {
 
 	}
 
-	public void postOrder()
-	{
-		postOrder(root);
+	public void postOrder() {
+		preOrder(root);
 	}
 
-	private void postOrder(TreeNode tree){
-		if(tree != null){
+	public void postOrder(TreeNode tree) {
+		if (tree != null) {
 			inOrder(tree.getLeft());
 			inOrder(tree.getRight());
 			System.out.print(tree.getValue() + " ");
 		}
+
 	}
 
 	public void revOrder() {
 		revOrder(root);
+		System.out.println("\n");
 	}
 
 	private void revOrder(TreeNode tree) {
 		if (tree != null) {
+			System.out.print(tree.getValue() + " ");
 			inOrder(tree.getRight());
 			inOrder(tree.getLeft());
-			System.out.print(tree.getValue() + " ");
 		}
 	}
 
@@ -126,42 +128,30 @@ public class BinarySearchTree {
 
 	// getWidth, getHeight, , and isFull
 
-	public int getHeight(){
+	public int getHeight() {
 		int ret = getNumLevels();
-		if(ret == 0)
+		if (ret == 0)
 			return ret;
-		else	
-			return  ret - 1;
+		else
+			return ret - 1;
 	}
 
 	public int getWidth() {
 		int count = 0;
 		TreeNode x = root;
 		while (x != null) {
-			x = x.getLeft();
+			x = root.getLeft();
 			count++;
 		}
 		x = root;
 		while (x != null) {
-			x = x.getRight();
+			x = root.getRight();
 			count++;
 		}
 		return count;
 
 	}
-	public boolean search(Comparable value) {
-		return search(root, value);
-	}
-	public boolean search(TreeNode tree, Comparable value) {
-		if(tree.getValue().equals(value))
-			return true;
-		if(tree.getLeft() != null)
-			return search(tree.getLeft(),value);
-		else if(tree.getRight() != null )
-			return search(tree.getRight(),value);
-		return false;
-			
-	}
+
 	public int getSize() {
 		return getSize(root, 0);
 	}
@@ -189,6 +179,22 @@ public class BinarySearchTree {
 
 	}
 
+	public PhoneEntry search(String value) {
+		return search(root, value);
+	}
+
+	public PhoneEntry search(TreeNode tree, String n) {
+		if (tree.getValue().equals(n))
+			return (PhoneEntry) tree.getValue();
+		if (((PhoneEntry) tree.getValue()).name.compareTo(n) > 0) {
+			if (tree.getRight() != null)
+				return search(tree.getRight(), n);
+		} else if (((PhoneEntry) tree.getValue()).name.compareTo(n) < 0)
+			if (tree.getLeft() != null)
+				return search(tree.getLeft(), n);
+		return null;
+
+	}
 
 	public Comparable maxNode() {
 		return maxNode(root);

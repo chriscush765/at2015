@@ -1,4 +1,4 @@
-package nodes;
+package bianaryPhone;
 
 public class PhoneEntry implements Comparable {
 
