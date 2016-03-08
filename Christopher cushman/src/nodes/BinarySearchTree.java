@@ -51,23 +51,22 @@ public class BinarySearchTree {
 	public void preOrder(TreeNode tree) {
 		if (tree != null) {
 			System.out.print(tree.getValue() + " ");
-			inOrder(tree.getLeft());
-			inOrder(tree.getRight());
+			preOrder(tree.getLeft());
+			preOrder(tree.getRight());
 
 		}
 
 	}
 
-	public void postOrder()
-	{
+	public void postOrder() {
 		postOrder(root);
 	}
 
-	private void postOrder(TreeNode tree){
-		if(tree != null){
-			inOrder(tree.getLeft());
-			inOrder(tree.getRight());
-			System.out.print(tree.getValue() + " ");
+	public void postOrder(TreeNode root) {
+		if (root != null) {
+			postOrder(root.getLeft());
+			postOrder(root.getRight());
+			System.out.print(root.getValue() + " ");
 		}
 	}
 
@@ -77,9 +76,9 @@ public class BinarySearchTree {
 
 	private void revOrder(TreeNode tree) {
 		if (tree != null) {
-			inOrder(tree.getRight());
-			inOrder(tree.getLeft());
+			revOrder(tree.getRight());
 			System.out.print(tree.getValue() + " ");
+			revOrder(tree.getLeft());
 		}
 	}
 
@@ -97,17 +96,16 @@ public class BinarySearchTree {
 	}
 
 	public int getNumLeaves() {
-		return getNumLeaves(root, 1);
+		return getNumLeaves(root);
 	}
 
-	public int getNumLeaves(TreeNode tree, int count) {
-		if (tree.getLeft() != null)
-			return getNumLeaves(tree.getLeft(), count);
-		else if (tree.getRight() != null)
-			return getNumLeaves(tree.getRight(), count);
+	public int getNumLeaves(TreeNode tree) {
+		if (tree == null)
+			return 0;
+		if (tree.getLeft() == null && tree.getRight() == null)
+			return 1;
 		else
-			return count++;
-
+			return getNumLeaves(tree.getLeft()) + getNumLeaves(tree.getRight());
 	}
 
 	public int getNumNodes() {
@@ -126,42 +124,45 @@ public class BinarySearchTree {
 
 	// getWidth, getHeight, , and isFull
 
-	public int getHeight(){
+	public int getHeight() {
 		int ret = getNumLevels();
-		if(ret == 0)
+		if (ret == 0)
 			return ret;
-		else	
-			return  ret - 1;
+		else
+			return ret - 1;
 	}
 
 	public int getWidth() {
-		int count = 0;
-		TreeNode x = root;
-		while (x != null) {
-			x = x.getLeft();
-			count++;
-		}
-		x = root;
-		while (x != null) {
-			x = x.getRight();
-			count++;
-		}
-		return count;
-
+		return getWidth(root);
 	}
+
+	public int getWidth(TreeNode tree) {
+		if (tree == null)
+			return 0;
+
+		int first = getNumLevels(tree.getRight())
+				+ getNumLevels(tree.getLeft()) + 1;
+		int second = getNumLevels(tree.getRight());
+		int third = getNumLevels(tree.getLeft());
+
+		return Math.max(first, Math.max(second, third));
+	}
+
 	public boolean search(Comparable value) {
 		return search(root, value);
 	}
+
 	public boolean search(TreeNode tree, Comparable value) {
-		if(tree.getValue().equals(value))
+		if (tree.getValue().equals(value))
 			return true;
-		if(tree.getLeft() != null)
-			return search(tree.getLeft(),value);
-		else if(tree.getRight() != null )
-			return search(tree.getRight(),value);
+		if (tree.getLeft() != null)
+			return search(tree.getLeft(), value);
+		else if (tree.getRight() != null)
+			return search(tree.getRight(), value);
 		return false;
-			
+
 	}
+
 	public int getSize() {
 		return getSize(root, 0);
 	}
@@ -189,7 +190,6 @@ public class BinarySearchTree {
 
 	}
 
-
 	public Comparable maxNode() {
 		return maxNode(root);
 	}
@@ -208,30 +208,6 @@ public class BinarySearchTree {
 		return max;
 	}
 
-	public void remove(Comparable val) {
-		root = remove(root, val);
-	}
-	private TreeNode remove(TreeNode tree, Comparable val) {
-
-		if (tree == null) {
-			int x = val.compareTo(tree.getValue());
-
-			if (x < 0) {
-				tree.setLeft(remove(tree.getLeft(), val));
-			} else if (x < 0) {
-				tree.setRight(remove(tree.getRight(), val));
-			} else {
-				if (tree.getRight() == null)
-					tree = tree.getLeft();
-				else {
-					TreeNode next = (TreeNode) minNode(tree.getRight());
-					tree.setValue((Comparable<Integer>) next.getValue());
-					tree.setRight(remove(tree.getRight(), next.getValue()));
-				}
-			}
-		}
-		return tree;
-	}
 
 	public Comparable minNode() {
 		return minNode(root);
@@ -250,6 +226,34 @@ public class BinarySearchTree {
 		}
 		return min;
 
+	}
+	
+public TreeNode remove(Comparable val, TreeNode tree){
+		
+		if(tree != null){
+			int dirTest = val.compareTo(tree.getValue());
+			
+			if(dirTest < 0){
+				tree.setLeft(remove(val, tree.getLeft()));
+			}
+			else if(dirTest > 0){
+				tree.setRight(remove(val, tree.getRight()));
+			}
+			else{
+				if(tree.getRight() == null)
+					tree = tree.getLeft();
+				else{
+					TreeNode successor = (TreeNode) minNode(tree.getRight());
+					tree.setValue((Comparable<Integer>) successor.getValue());
+					tree.setRight(remove(successor.getValue(), tree.getRight()));
+				}
+			}
+		}
+		return tree;
+	}
+	
+	public void remove(Comparable val) {
+		root = remove(val, root);
 	}
 
 	// level order
