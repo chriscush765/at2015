@@ -1,8 +1,9 @@
 package bianaryPhone;
 
-import static java.lang.System.*;
 
 import java.util.LinkedList;
+
+import nodes.*;
 
 public class BinarySearchTree {
 	private TreeNode root;
@@ -184,7 +185,7 @@ public class BinarySearchTree {
 	}
 
 	public PhoneEntry search(TreeNode tree, String n) {
-		if (tree.getValue().equals(n))
+		if (((PhoneEntry) tree.getValue()).name.equals(n))
 			return (PhoneEntry) tree.getValue();
 		if (((PhoneEntry) tree.getValue()).name.compareTo(n) > 0) {
 			if (tree.getRight() != null)
@@ -192,6 +193,24 @@ public class BinarySearchTree {
 		} else if (((PhoneEntry) tree.getValue()).name.compareTo(n) < 0)
 			if (tree.getLeft() != null)
 				return search(tree.getLeft(), n);
+		return null;
+
+	}
+
+	public PhoneEntry changeNumber(String name, String number) {
+		return changeNumber(root, name, number);
+	}
+
+	public PhoneEntry changeNumber(TreeNode tree, String name, String number) {
+		if (((PhoneEntry) tree.getValue()).name.equals(name)) {
+			tree.setValue(new PhoneEntry(name, number));
+		}
+		if (((PhoneEntry) tree.getValue()).name.compareTo(name) > 0) {
+			if (tree.getRight() != null)
+				return changeNumber(tree.getRight(), name, number);
+		} else if (((PhoneEntry) tree.getValue()).name.compareTo(name) < 0)
+			if (tree.getLeft() != null)
+				return changeNumber(tree.getLeft(), name, number);
 		return null;
 
 	}
@@ -214,33 +233,33 @@ public class BinarySearchTree {
 		return max;
 	}
 
-	public void remove(Comparable val) {
-		root = remove(root, val);
+	public TreeNode remove(String val) {
+		root = remove(val, root);
+		return root;
 	}
-	private TreeNode remove(TreeNode tree, Comparable val) {
 
-		if (tree == null) {
-			int x = val.compareTo(tree.getValue());
-
-			if (x < 0) {
-				tree.setLeft(remove(tree.getLeft(), val));
-			} else if (x < 0) {
-				tree.setRight(remove(tree.getRight(), val));
-			} else {
-				if (tree.getRight() == null)
+	public TreeNode remove(String val, TreeNode tree){
+		
+		if(tree != null){
+			int dirTest = val.compareTo(((PhoneEntry)tree.getValue()).name);
+			
+			if(dirTest < 0){
+				tree.setLeft(remove(val, tree.getLeft()));
+			}
+			else if(dirTest > 0){
+				tree.setRight(remove(val, tree.getRight()));
+			}
+			else{
+				if(tree.getRight() == null)
 					tree = tree.getLeft();
-				else {
-					TreeNode next = (TreeNode) minNode(tree.getRight());
-					tree.setValue((Comparable<Integer>) next.getValue());
-					tree.setRight(remove(tree.getRight(), next.getValue()));
+				else{
+					TreeNode successor = (TreeNode) minNode(tree.getRight());
+					tree.setValue((PhoneEntry) successor.getValue());
+					tree.setRight(remove(((PhoneEntry)successor.getValue()).name, tree.getRight()));
 				}
 			}
 		}
 		return tree;
-	}
-
-	public Comparable minNode() {
-		return minNode(root);
 	}
 
 	public Comparable minNode(TreeNode tree) {

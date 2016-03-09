@@ -29,12 +29,12 @@ public class PhoneBook{
 		return x.name + ": "+x.number;
 	}
 	
-	public String changeNumber(String number) {
-		
+	public String changeNumber(String name, String number) {
+		return data.changeNumber("Lazo", "99999999999999999").toString();
 	}
 	
 	public String delete(String name) {
-		
+		return data.remove(name).toString();
 	}
 	
 	public void load() {

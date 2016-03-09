@@ -231,7 +231,7 @@ public class BinarySearchTree {
 public TreeNode remove(Comparable val, TreeNode tree){
 		
 		if(tree != null){
-			int dirTest = val.compareTo(tree.getValue());
+			int dirTest = val.compareTo((PhoneEntry)tree.getValue()).name);
 			
 			if(dirTest < 0){
 				tree.setLeft(remove(val, tree.getLeft()));

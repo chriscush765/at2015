@@ -25,7 +25,7 @@ public class Tester {
 		System.out.println(" ---- getting Henson ----\n");
 		System.out.println(pb.lookup("Henson"));
 		System.out.println(" ---- changing num for Henson ----\n");
-		//pb.changeNumber("Henson", "123123123123");
+		pb.changeNumber("Henson", "123123123123");
 		System.out.println(pb.lookup("Henson"));
 	}
 }
