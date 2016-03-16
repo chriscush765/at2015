@@ -22,7 +22,7 @@ public class HistoTree
 	private HistoNode add(Comparable data, HistoNode tree)
 	{
 		if (tree == null)
-			return tree = new HistoNode(data,0, null,null);
+			return tree = new HistoNode(data,1, null,null);
 		if (data.compareTo(tree.getData()) < 0)
 			tree.setLeft(add(data, tree.getLeft()));
 		else if (data.compareTo(tree.getData()) > 0)
