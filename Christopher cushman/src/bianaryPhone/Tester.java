@@ -14,18 +14,12 @@ public class Tester {
 		PhoneBook pb = new PhoneBook(500000);
 		pb.load();
 		pb.display();
-		System.out.println(" ---- capacity ----\n");
-		System.out.println(pb.getCapacity());
-		System.out.println(" ---- size ----\n");
-		System.out.println(pb.getSize());
-		System.out.println(" ---- null buckets ----\n");
-		System.out.println(pb.getNullBuckets());
-		System.out.println(" ---- longest list ----\n");
-		//System.out.println(pb.getLongestList());
-		System.out.println(" ---- getting Henson ----\n");
+		System.out.println();
+		System.out.println(" ---- getting Henson ----");
 		System.out.println(pb.lookup("Henson"));
 		System.out.println(" ---- changing num for Henson ----\n");
 		pb.changeNumber("Henson", "123123123123");
 		System.out.println(pb.lookup("Henson"));
+		System.out.println(pb.nameLookup(name));
 	}
 }

@@ -179,26 +179,45 @@ public class BinarySearchTree {
 		return false;
 
 	}
-
-	public PhoneEntry search(String value) {
-		return search(root, value);
+	
+	public String lookup(String number) {
+		return lookup("-1", root, number);
 	}
 
-	public PhoneEntry search(TreeNode tree, String n) {
-		if (((PhoneEntry) tree.getValue()).name.equals(n))
-			return (PhoneEntry) tree.getValue();
-		if (((PhoneEntry) tree.getValue()).name.compareTo(n) > 0) {
-			if (tree.getRight() != null)
-				return search(tree.getRight(), n);
-		} else if (((PhoneEntry) tree.getValue()).name.compareTo(n) < 0)
-			if (tree.getLeft() != null)
-				return search(tree.getLeft(), n);
-		return null;
+	private String lookup(String name, TreeNode tree, String number) {
+		if (tree != null)
+			if ((tree.getLeft() != null && ((PhoneEntry) tree.getLeft().getValue()).number.equals(number)))
+				return ((PhoneEntry) tree.getLeft().getValue()).name;
+			else if (tree.getRight() != null && ((PhoneEntry) tree.getRight().getValue()).number.equals(number))
+				return ((PhoneEntry) tree.getRight().getValue()).name;
+			else {
+				if (!lookup(name, tree.getLeft(), number).equals("-1"))
+					return lookup(name, tree.getLeft(), number);
+				else if (!lookup(name, tree.getRight(), number).equals("-1"))
+					return lookup(name, tree.getRight(), number);
+			}
 
+		return "-1";
 	}
 
-	public PhoneEntry changeNumber(String name, String number) {
-		return changeNumber(root, name, number);
+	public String lookupNumber(String lookForName) {
+		return lookupNumber(lookForName, root);
+	}
+
+	public String lookupNumber(String name, TreeNode tree) {
+		if (tree != null) {
+			if (((PhoneEntry) tree.getValue()).name.equals(name))
+				return ((PhoneEntry) tree.getValue()).number;
+			else if (((PhoneEntry) tree.getValue()).name.compareTo(name) > 0)
+				return lookupNumber(name, tree.getLeft());
+			else
+				return lookupNumber(name, tree.getRight());
+		}
+		return "-1";
+	}
+
+	public void changeNumber(String name, String number) {
+		changeNumber(root, name, number);
 	}
 
 	public PhoneEntry changeNumber(TreeNode tree, String name, String number) {

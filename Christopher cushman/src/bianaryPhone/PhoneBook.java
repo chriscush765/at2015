@@ -25,17 +25,23 @@ public class PhoneBook{
 	}
 	
 	public String lookup(String name) {
-		PhoneEntry x = data.search(name);
-		return x.name + ": "+x.number;
+		String x = data.lookupNumber(name);
+		return name + ": "+x;
 	}
 	
-	public String changeNumber(String name, String number) {
-		return data.changeNumber("Lazo", "99999999999999999").toString();
+	public String nameLookup(String name) {
+		return data.lookup(name);
+	}
+	
+	public void changeNumber(String name, String number) {
+		data.changeNumber(name,number);
 	}
 	
 	public String delete(String name) {
 		return data.remove(name).toString();
 	}
+	
+	
 	
 	public void load() {
 		BufferedReader k;
