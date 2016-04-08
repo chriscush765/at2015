@@ -20,6 +20,8 @@ public class Tester {
 		System.out.println(" ---- changing num for Henson ----\n");
 		pb.changeNumber("Henson", "123123123123");
 		System.out.println(pb.lookup("Henson"));
-		System.out.println(pb.nameLookup(name));
+		pb.delete("Henson");
+		System.out.println(pb.lookup("Henson"));
+		System.out.println(pb.nameLookup("123123123123"));
 	}
 }

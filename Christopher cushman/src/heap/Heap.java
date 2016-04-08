@@ -17,34 +17,39 @@ public class Heap {
 	}
 
 	public void swapUp(int bot) {
-		while (bot > 0) {
-			int parent = bot / 2;
-			if (list.get(parent) > list.get(bot)) {
-				int temp = list.get(parent);
-				list.set(parent, list.get(bot));
-				list.set(bot, temp);
-			} else
-				break;
-
+		if (bot > 0) {
+			int parent = (bot - 1) / 2;
+			if (list.get(parent) < list.get(bot)) {
+				swap(parent, bot);
+				swapUp(parent);
+			}
 		}
 	}
 
 	public void remove() {
-		list.set(1, list.get(list.size() - 1));
+		list.set(0, list.get(list.size() - 1));
 		list.remove(list.size() - 1);
 		swapDown(list.size());
 	}
 
 	public void swapDown(int top) {
-		while (top < list.size()) {
-			int child = Math.min(top / 2, (top / 2) + 1);
-			if (list.get(child) < list.get(top)) {
-				int temp = list.get(child);
-				list.set(child, list.get(top));
-				list.set(top, temp);
-			} else
-				break;
+		int root = 0;
+		while (root < list.size()) {
+			int left = root * 2 + 1, right = root * 2 + 2;
+			int max = root;
+			if (left < list.size())
+				if (list.get(left) > list.get(max))
+					max = left;
+			if (right < list.size())
+				if (list.get(right) > list.get(max))
+					max = right;
 
+			if (max > root) {
+				swap(max, root);
+				root = max;
+			}
+			else
+			root++;
 		}
 	}
 
@@ -52,18 +57,34 @@ public class Heap {
 		out.println("\n\nPRINTING THE HEAP!\n\n");
 		out.println();
 		int col = 1;
+		int instance = col;
 		for (int x : list) {
 
-			int instance = col;
 			if (instance > 0) {
-				System.out.println(x + " ");
+				if (col == 1)
+					System.out.print("     " + x + " ");
+				else if (col == 2)
+					System.out.print("   " + x + " ");
+				else if (col == 4)
+					System.out.print(" " + x + " ");
+				else
+					System.out.print(x + " ");
+
 				instance--;
-			} if(instance == 0) {
+			}
+			if (instance == 0) {
 				col = col * 2;
+				instance = col;
 				System.out.println();
 			}
 
 		}
+	}
+
+	private void swap(int parent, int child) {
+		final int temp = list.get(parent);
+		list.set(parent, list.get(child));
+		list.set(child, temp);
 	}
 
 	public String toString() {
