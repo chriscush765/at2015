@@ -1,46 +1,91 @@
 package monsters;
 
-import java.util.Queue;
-import java.util.Arrays;
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Scanner;
-import java.util.PriorityQueue;
+import java.util.List;
 
-public class MonsterPQ  
+@SuppressWarnings("rawtypes")
+public class MonsterPQ
 {
-	private Queue<Monster> pq;
+	private List<Comparable> list;
 
 	public MonsterPQ()
 	{
-		pq = new PriorityQueue<Monster>();
+		list = new ArrayList<Comparable>();
 	}
 
-	public void add(Monster obj)
+	public void add(Comparable obj)
 	{
-		pq.offer(obj);
+		list.add(obj);
+		swapUp(list.size() - 1);
+	}
+	
+	private void swap(int start, int finish) {
+		Comparable temp = list.get(start);
+		list.set(start, list.get(finish));
+		list.set(finish, temp);
+	}
+
+	@SuppressWarnings("unchecked")
+	public void swapUp(int bot) {
+		if (bot > 0) {
+			int parent = (bot - 1) / 2;
+			if (list.get(parent).compareTo(list.get(bot)) > 0) {
+				swap(parent, bot);
+				swapUp(parent);
+			} 
+		}
+	}
+
+	public boolean isEmpty(){
+		return list.size() == 0;
 	}
 	
 	public Object getMin()
 	{
-		return pq.stream().sorted().toArray()[0];
+		return list.get(0);
 	}
 	
 	public Object removeMin()
 	{
-		Monster t = (Monster) getMin();
-		pq.remove(t);
-		return t;
+		Object obj = list.set(0, list.get(list.size() - 1));
+		list.remove(list.size() - 1);
+		swapDown(list.size());
+		return obj;
 	}
 	
-	public String getNaturalOrder()
-	{
-		return Arrays.toString(pq.stream().sorted().toArray());	
-	}
-	
-	public String toString() {
-		return Arrays.toString(pq.stream().toArray());	
+	@SuppressWarnings("unchecked")
+	public void swapDown(int top) {
+		int root = 0;
+		while(root < list.size()){
+			int left = root*2+1, right = root*2+2;
+			int max = root;
+			if(left < list.size())
+				if(list.get(left).compareTo(list.get(max)) < 0)
+					max = left;
+			if(right < list.size())
+				if(list.get(right).compareTo(list.get(max)) < 0)
+					max = right;
+			
+			if(max > root){
+				swap(max, root);
+				root = max;
+			}
+			else
+				break;
+		}
 	}
 
-	//write a toString method
+	public String getNaturalOrder()
+	{
+		String output="";
+		while(!this.isEmpty())
+		{
+			output+=this.removeMin()+ " ";
+		}
+		return output;		
+	}
+
+	public String toString() {
+		return list.toString();
+	}
 }

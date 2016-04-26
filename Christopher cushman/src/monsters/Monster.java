@@ -1,27 +1,21 @@
 package monsters;
 
-class Monster implements Comparable<Monster>
+class Monster implements Comparable<Monster> {
 
-{
-
-	int ht, wt, age;
-
-	public Monster() {
-		this(0,0,0);
-	}
+	private int height, weight, age;
 
 	public Monster(int ht, int wt, int age) {
-		this.ht = ht;
-		this.wt = wt;
+		height = ht;
+		weight = wt;
 		this.age = age;
 	}
 
 	public void setWeight(int wt) {
-		this.wt = wt;
+		weight = wt;
 	}
 
 	public void setHeight(int ht) {
-		this.ht = ht;
+		height = ht;
 	}
 
 	public void setAge(int age) {
@@ -29,15 +23,15 @@ class Monster implements Comparable<Monster>
 	}
 
 	public Object clone() {
-		return new Monster(getWeight(), getHeight(), getAge());
+		return new Monster(weight, height, age);
 	}
 
 	public int getWeight() {
-		return wt;
+		return weight;
 	}
 
 	public int getHeight() {
-		return ht;
+		return height;
 	}
 
 	public int getAge() {
@@ -45,18 +39,21 @@ class Monster implements Comparable<Monster>
 	}
 
 	public boolean equals(Object o) {
-		Monster m = (Monster) o;
-		return ht == m.getHeight() && wt == m.getWeight() && age == m.getAge();
+		Monster ms = (Monster) o;
+		return ms.getAge() == getAge() && ms.getWeight() == getWeight()
+				&& ms.getHeight() == getHeight();
 	}
 
 	public int compareTo(Monster rhs) {
-		return getHeight() != rhs.getHeight() ? getHeight() - rhs.getHeight() : getWeight() != rhs.getWeight() ? getWeight() - rhs.getWeight() : getAge() - rhs.getAge();
-			
-	
+		if (getHeight() == rhs.getHeight())
+			if (getWeight() == rhs.getWeight())
+				return getAge() - rhs.getAge();
+			else
+				return getWeight() - rhs.getWeight();
+		return getHeight() - rhs.getHeight();
 	}
 
 	public String toString() {
-		return "Height: "+getHeight()+", Weight: "+getWeight()+ ", Age: "+getAge();
+		return "" + getHeight() + ", " + getWeight() + ", " + getAge();
 	}
-
 }
